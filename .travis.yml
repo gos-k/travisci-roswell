@@ -1,0 +1,27 @@
+language: common-lisp
+sudo: false
+
+env:
+  global:
+    - PATH=$HOME/.local/bin:$HOME/.roswell/bin:$PATH
+    - ROSWELL_INSTALL_DIR=$HOME/.local
+
+install:
+  - | 
+    if [ ! -e "$ROSWELL_INSTALL_DIR/bin/ros" ]; then
+      curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh
+    fi
+  - pwd
+  - ls
+
+cache:
+  directories:
+    - $HOME/.local
+    - $HOME/.roswell
+    - $HOME/.cache/common-lisp
+
+script:
+  - ros --version
+  - ros run -- --version
+  - pwd
+  - ls
